@@ -106,7 +106,7 @@
   columns: (sidebar-w, 1fr),
 
   // ------------------------------------------------------------- SIDEBAR ----
-  pad(x: 16pt, top: 18pt, bottom: 16pt)[
+  pad(x: 16pt, top: 30pt, bottom: 16pt)[
 
     // Photo — circular with a ringed rim
     #align(center)[
@@ -138,7 +138,6 @@
     #block(below: 5pt)[
       #text(size: 10pt, weight: "medium")[English] #h(1fr) #text(size: 8.5pt, fill: muted)[C2 — Proficient]
       #linebreak()
-      #text(size: 8.5pt, fill: muted)[LRN C2 (2024) · FCE Michigan (2001)]
     ]
 
     #side-h[Skills & Tools]
@@ -151,7 +150,7 @@
   ],
 
   // ---------------------------------------------------------------- MAIN ----
-  pad(x: 22pt, top: 20pt, bottom: 16pt)[
+  pad(x: 22pt, top: 30pt, bottom: 16pt)[
 
     #main-h[Work Experience]
     #timeline(
