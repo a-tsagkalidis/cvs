@@ -13,7 +13,7 @@
 #let sidebarbg = rgb("#f1f4f4")   // sidebar band colour
 #let sidebar-w = 6.6cm
 
-#set text(font: "Liberation Sans", size: 9pt, fill: rgb("#23292d"), lang: "en")
+#set text(font: "Liberation Sans", size: 10pt, fill: rgb("#23292d"), lang: "en")
 #set par(justify: false, leading: 0.55em)
 
 #set page(
@@ -27,14 +27,14 @@
 
 // Heading used inside the grey sidebar
 #let side-h(body) = block(above: 24pt, below: 5pt)[
-  #text(size: 9pt, weight: "bold", fill: accent, tracking: 0.8pt)[#upper(body)]
+  #text(size: 10pt, weight: "bold", fill: accent, tracking: 0.8pt)[#upper(body)]
   #v(-5pt)
   #line(length: 100%, stroke: 0.6pt + accent.lighten(35%))
 ]
 
 // Heading used in the main column
 #let main-h(body) = block(above: 22pt, below: 7pt)[
-  #text(size: 11.5pt, weight: "bold", fill: accent, tracking: 0.6pt)[#upper(body)]
+  #text(size: 12.5pt, weight: "bold", fill: accent, tracking: 0.6pt)[#upper(body)]
   #v(-6pt)
   #line(length: 100%, stroke: 1.1pt + accent)
 ]
@@ -67,37 +67,37 @@
 #let entry(role, org: "", place: "", dates: "", body: none) = {
   set block(spacing: 5pt)
   grid(columns: (1fr, auto), column-gutter: 8pt,
-    text(size: 10pt, weight: "bold")[#role],
-    text(size: 8pt, fill: muted)[#dates],
+    text(size: 11pt, weight: "bold")[#role],
+    text(size: 8.5pt, fill: muted)[#dates],
   )
   if org != "" or place != "" {
     block[
-      #text(size: 9pt, fill: accent, style: "italic")[#org]
-      #if place != "" [ #text(size: 8.5pt, fill: muted)[ · #place] ]
+      #text(size: 10pt, fill: accent, style: "italic")[#org]
+      #if place != "" [ #text(size: 10pt, fill: muted)[ · #place] ]
     ]
   }
-  if body != none { block[#text(size: 9pt)[#body]] }
+  if body != none { block[#text(size: 10pt)[#body]] }
 }
 
 // Compact one-line item (certificates, activities)
 #let item(title, dates: "", note: "") = block(below: 4.5pt)[
   #grid(columns: (1fr, auto), column-gutter: 8pt,
-    text(size: 9pt)[#title #if note != "" [#text(fill: muted)[ · #note]]],
-    text(size: 8pt, fill: muted)[#dates],
+    text(size: 10pt)[#title #if note != "" [#text(fill: muted)[ · #note]]],
+    text(size: 8.5pt, fill: muted)[#dates],
   )
 ]
 
 // A line in the contact block
-#let contact(label, value) = block(above: 0pt, below: 14pt)[
-  #text(size: 7.5pt, fill: accent, weight: "bold", tracking: 0.5pt)[#upper(label)] \
-  #text(size: 8.8pt)[#value]
+#let contact(label, value) = block(above: 0pt, below: 12pt)[
+  #text(size: 8.5pt, fill: accent, weight: "bold", tracking: 0.5pt)[#upper(label)] \
+  #text(size: 9.5pt)[#value]
 ]
 
 // A skill / tool chip
 #let chip(body) = box(
   fill: white, stroke: 0.6pt + accent.lighten(30%), radius: 3pt,
   inset: (x: 5pt, y: 2.5pt), outset: (y: 1.6pt),
-)[#text(size: 8pt)[#body]]
+)[#text(size: 8.5pt)[#body]]
 
 // =============================================================================
 //  PAGE CONTENT
@@ -133,12 +133,12 @@
 
     #side-h[Languages]
     #block(below: 5pt)[
-      #text(size: 9pt, weight: "medium")[Greek] #h(1fr) #text(size: 8pt, fill: muted)[Native]
+      #text(size: 10pt, weight: "medium")[Greek] #h(1fr) #text(size: 8.5pt, fill: muted)[Native]
     ]
     #block(below: 5pt)[
-      #text(size: 9pt, weight: "medium")[English] #h(1fr) #text(size: 8pt, fill: muted)[C2 — Proficient]
+      #text(size: 10pt, weight: "medium")[English] #h(1fr) #text(size: 8.5pt, fill: muted)[C2 — Proficient]
       #linebreak()
-      #text(size: 7.5pt, fill: muted)[LRN C2 (2024) · FCE Michigan (2001)]
+      #text(size: 8.5pt, fill: muted)[LRN C2 (2024) · FCE Michigan (2001)]
     ]
 
     #side-h[Skills & Tools]
@@ -201,7 +201,7 @@
       ),
     )
     #v(1pt)
-    #text(size: 8pt, weight: "bold", fill: muted, tracking: 0.5pt)[#upper("Certificates & Seminars")]
+    #text(size: 8.5pt, weight: "bold", fill: muted, tracking: 0.5pt)[#upper("Certificates & Seminars")]
     #v(4pt)
     #item("LRN Level 3 Certificate in ESOL International (CEF C2)", dates: "2024")
     #item("Certificate of Completion in Green Skills Upskilling Program", dates: "2024")
@@ -219,6 +219,6 @@
     #item("Sprinter (short-distance runner)", dates: "1999 – 2004")
 
     #main-h[Interests]
-    #text(size: 9pt)[Music · Photography · Cinema · Role-playing games]
+    #text(size: 10pt)[Music · Photography · Cinema · Role-playing games]
   ],
 )
