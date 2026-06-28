@@ -26,14 +26,14 @@
 // ----- Reusable building blocks --------------------------------------------
 
 // Heading used inside the grey sidebar
-#let side-h(body) = block(above: 12pt, below: 5pt)[
+#let side-h(body) = block(above: 24pt, below: 5pt)[
   #text(size: 9pt, weight: "bold", fill: accent, tracking: 0.8pt)[#upper(body)]
   #v(-5pt)
   #line(length: 100%, stroke: 0.6pt + accent.lighten(35%))
 ]
 
 // Heading used in the main column
-#let main-h(body) = block(above: 12pt, below: 7pt)[
+#let main-h(body) = block(above: 22pt, below: 7pt)[
   #text(size: 11.5pt, weight: "bold", fill: accent, tracking: 0.6pt)[#upper(body)]
   #v(-6pt)
   #line(length: 100%, stroke: 1.1pt + accent)
@@ -45,6 +45,7 @@
 
 // A vertical "timeline" of entries (continuous rail + a dot per entry)
 #let timeline(..items) = {
+  let n = items.pos().len()
   let cells = ()
   for it in items.pos() {
     cells.push(tl-dot)
@@ -52,8 +53,10 @@
   }
   grid(
     columns: (15pt, 1fr),
-    stroke: (x, y) => if x == 1 { (left: 1.1pt + accent.lighten(15%)) },
-    inset: (x, y) => if x == 1 { (left: 11pt, bottom: 8pt) } else { (bottom: 8pt) },
+    // Draw the rail on every row except the last, so it ends at the last dot
+    // instead of dangling an orphan segment below the final entry.
+    stroke: (x, y) => if x == 1 and y < n - 1 { (left: 1.1pt + accent.lighten(15%)) },
+    inset: (x, y) => if x == 1 { (left: 11pt, bottom: 20pt) } else { (bottom: 8pt) },
     ..cells,
   )
 }
@@ -62,7 +65,7 @@
 // `set block(spacing)` keeps the org/place and body lines tucked tightly under
 // the role title; separation BETWEEN entries comes from the timeline cell inset.
 #let entry(role, org: "", place: "", dates: "", body: none) = {
-  set block(spacing: 3pt)
+  set block(spacing: 5pt)
   grid(columns: (1fr, auto), column-gutter: 8pt,
     text(size: 10pt, weight: "bold")[#role],
     text(size: 8pt, fill: muted)[#dates],
@@ -85,7 +88,7 @@
 ]
 
 // A line in the contact block
-#let contact(label, value) = block(above: 0pt, below: 8pt)[
+#let contact(label, value) = block(above: 0pt, below: 14pt)[
   #text(size: 7.5pt, fill: accent, weight: "bold", tracking: 0.5pt)[#upper(label)] \
   #text(size: 8.8pt)[#value]
 ]
@@ -202,11 +205,13 @@
     #v(4pt)
     #item("LRN Level 3 Certificate in ESOL International (CEF C2)", dates: "2024")
     #item("Certificate of Completion in Green Skills Upskilling Program", dates: "2024")
+    #item("Certification in Paediatric Basic Life Support from ERC", dates: "2026")
     #item("ECDL — Computer Skills Certification", dates: "2017")
     #item("FCE of Michigan", dates: "2001")
 
     #main-h[Activities & Achievements]
     #item("Opera / Pop / Rock / Symphonic Metal singing", dates: "2005 – Present")
+    #item("Lead Actress / Singer in Children's Musical 'Για να αρχίσει η ζωή'", dates: "2024 – 2025")
     #item("Traditional Greek dancing", dates: "1994 – 2017")
     #item("Member, Student Union of the Aristotle University", note: "Thessaloniki", dates: "2005 – 2009")
     #item("President, High School Student Council", note: "Larissa", dates: "2004 – 2005")

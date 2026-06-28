@@ -45,6 +45,7 @@
 
 // A vertical "timeline" of entries (continuous rail + a dot per entry)
 #let timeline(..items) = {
+  let n = items.pos().len()
   let cells = ()
   for it in items.pos() {
     cells.push(tl-dot)
@@ -52,7 +53,9 @@
   }
   grid(
     columns: (15pt, 1fr),
-    stroke: (x, y) => if x == 1 { (left: 1.1pt + accent.lighten(15%)) },
+    // Draw the rail on every row except the last, so it ends at the last dot
+    // instead of dangling an orphan segment below the final entry.
+    stroke: (x, y) => if x == 1 and y < n - 1 { (left: 1.1pt + accent.lighten(15%)) },
     inset: (x, y) => if x == 1 { (left: 11pt, bottom: 8pt) } else { (bottom: 8pt) },
     ..cells,
   )
