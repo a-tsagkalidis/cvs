@@ -59,33 +59,39 @@
 }
 
 // One job / education entry (used inside `timeline`)
-#let entry(role, org: "", place: "", dates: "", body: none) = [
-  #grid(columns: (1fr, auto), column-gutter: 8pt,
+// `set block(spacing)` keeps the org/place and body lines tucked tightly under
+// the role title; separation BETWEEN entries comes from the timeline cell inset.
+#let entry(role, org: "", place: "", dates: "", body: none) = {
+  set block(spacing: 3pt)
+  grid(columns: (1fr, auto), column-gutter: 8pt,
     text(size: 10pt, weight: "bold")[#role],
     text(size: 8pt, fill: muted)[#dates],
   )
-  #if org != "" or place != "" [
-    #v(1pt)
-    #text(size: 9pt, fill: accent, style: "italic")[#org]
-    #if place != "" [ #text(size: 8.5pt, fill: muted)[ · #place] ]
-  ]
-  #if body != none [ #v(2pt); #text(size: 9pt)[#body] ]
-]
+  if org != "" or place != "" {
+    block[
+      #text(size: 9pt, fill: accent, style: "italic")[#org]
+      #if place != "" [ #text(size: 8.5pt, fill: muted)[ · #place] ]
+    ]
+  }
+  if body != none { block[#text(size: 9pt)[#body]] }
+}
 
 // One project entry (used inside `timeline`)
-#let project(title, dates: "", stack: none, body: none, link-label: none, url: none) = [
-  #grid(columns: (1fr, auto), column-gutter: 8pt,
+#let project(title, dates: "", stack: none, body: none, link-label: none, url: none) = {
+  set block(spacing: 3pt)
+  grid(columns: (1fr, auto), column-gutter: 8pt,
     text(size: 10pt, weight: "bold")[#title],
     text(size: 8pt, fill: muted)[#dates],
   )
-  #if body != none [ #v(2pt); #text(size: 9pt)[#body] ]
-  #if stack != none [ #v(2pt); #text(size: 8.5pt, fill: muted, style: "italic")[Stack: #stack] ]
-  #if url != none [
-    #v(2pt)
-    #text(size: 8.5pt, fill: accent, weight: "bold")[Link ]
-    #text(size: 8.5pt)[#link(url)[#link-label]]
-  ]
-]
+  if body != none { block[#text(size: 9pt)[#body]] }
+  if stack != none { block[#text(size: 8.5pt, fill: muted, style: "italic")[Stack: #stack]] }
+  if url != none {
+    block[
+      #text(size: 8.5pt, fill: accent, weight: "bold")[Link ]
+      #text(size: 8.5pt)[#link(url)[#link-label]]
+    ]
+  }
+}
 
 // Compact one-line item (certificates, activities)
 #let item(title, dates: "", note: "") = block(below: 4.5pt)[
@@ -96,7 +102,7 @@
 ]
 
 // A line in the contact block
-#let contact(label, value) = block(below: 5pt)[
+#let contact(label, value) = block(above: 0pt, below: 8pt)[
   #text(size: 7.5pt, fill: accent, weight: "bold", tracking: 0.5pt)[#upper(label)] \
   #text(size: 8.8pt)[#value]
 ]

@@ -59,18 +59,22 @@
 }
 
 // One job / education entry (used inside `timeline`)
-#let entry(role, org: "", place: "", dates: "", body: none) = [
-  #grid(columns: (1fr, auto), column-gutter: 8pt,
+// `set block(spacing)` keeps the org/place and body lines tucked tightly under
+// the role title; separation BETWEEN entries comes from the timeline cell inset.
+#let entry(role, org: "", place: "", dates: "", body: none) = {
+  set block(spacing: 3pt)
+  grid(columns: (1fr, auto), column-gutter: 8pt,
     text(size: 10pt, weight: "bold")[#role],
     text(size: 8pt, fill: muted)[#dates],
   )
-  #if org != "" or place != "" [
-    #v(1pt)
-    #text(size: 9pt, fill: accent, style: "italic")[#org]
-    #if place != "" [ #text(size: 8.5pt, fill: muted)[ · #place] ]
-  ]
-  #if body != none [ #v(2pt); #text(size: 9pt)[#body] ]
-]
+  if org != "" or place != "" {
+    block[
+      #text(size: 9pt, fill: accent, style: "italic")[#org]
+      #if place != "" [ #text(size: 8.5pt, fill: muted)[ · #place] ]
+    ]
+  }
+  if body != none { block[#text(size: 9pt)[#body]] }
+}
 
 // Compact one-line item (certificates, activities)
 #let item(title, dates: "", note: "") = block(below: 4.5pt)[
@@ -81,7 +85,7 @@
 ]
 
 // A line in the contact block
-#let contact(label, value) = block(below: 5pt)[
+#let contact(label, value) = block(above: 0pt, below: 8pt)[
   #text(size: 7.5pt, fill: accent, weight: "bold", tracking: 0.5pt)[#upper(label)] \
   #text(size: 8.8pt)[#value]
 ]
@@ -111,7 +115,6 @@
       #v(8pt)
       #text(size: 16pt, weight: "bold", fill: accent, font: "Libertinus Serif")[Georgia\ Mavrantza]
       #v(2pt)
-      #text(size: 8.5pt, fill: muted, tracking: 0.5pt)[Philologist · Educator]
     ]
 
     #side-h[Personal Info]
@@ -120,7 +123,7 @@
     #contact("Driving licence", "Category B")
 
     #side-h[Contact]
-    #contact("Address", "Kastorias 33, 56532\nThessaloniki, Greece")
+    #contact("Address", "5 Athanasiou Diakou, 57000\nNea Raidestos, Greece")
     #contact("Phone", "(+30) 698 383 4278")
     #contact("Email", link("mailto:georgiamavrantza@gmail.com")[georgiamavrantza\@gmail.com])
     #contact("LinkedIn", link("https://www.linkedin.com/in/georgia-mavrantza-85a489254")[georgia-mavrantza])
@@ -147,35 +150,11 @@
   // ---------------------------------------------------------------- MAIN ----
   pad(x: 22pt, top: 20pt, bottom: 16pt)[
 
-    #main-h[Profile]
-    #text(size: 9pt)[
-      Philologist and private tutor specialising in Modern and Ancient Greek, with a BA
-      in History and Archaeology (AUTH) and professional training in Special Education.
-      Classically trained singer and vocal coach with over a decade of teaching
-      experience, complemented by a background in sales, marketing and customer service
-      and a C2 command of English.
-    ]
-
     #main-h[Work Experience]
     #timeline(
       entry(
         "Greek & Ancient Greek Tutor", org: "Freelance", place: "Thermi, Thessaloniki",
         dates: "2024 – Present",
-        body: [Private tuition in Modern and Ancient Greek; lesson planning, exam preparation and progress tracking.],
-      ),
-      entry(
-        "Customer Service", org: "Active Technology", place: "Thessaloniki",
-        dates: "2023",
-        body: [Front-line customer support and order handling.],
-      ),
-      entry(
-        "Sales & Marketing Specialist", org: [Antique Store "Akrokeramon"], place: "Thessaloniki",
-        dates: "2019 – 2023",
-        body: [Sales, customer relations and promotion of antiques; product presentation and social-media content.],
-      ),
-      entry(
-        "Marketing Team Member", org: "Target Power Group", place: "Thessaloniki",
-        dates: "2018",
       ),
       entry(
         "Greek & Ancient Greek Tutor", org: "Freelance", place: "Thessaloniki",
@@ -184,18 +163,29 @@
       entry(
         "Vocal Coach", org: "Freelance", place: "Thessaloniki",
         dates: "2013 – 2017",
-        body: [Individual singing tuition; technique, breathing and repertoire.],
+      ),
+      entry(
+        "Customer Service", org: "Active Technology", place: "Thessaloniki",
+        dates: "2023",
+      ),
+      entry(
+        "Sales & Marketing Specialist", org: [Antique Store "Akrokeramon"], place: "Thessaloniki",
+        dates: "2019 – 2023",
+      ),
+      entry(
+        "Marketing Team Member", org: "Target Power Group", place: "Thessaloniki",
+        dates: "2018",
       ),
     )
 
     #main-h[Education & Training]
     #timeline(
       entry(
-        "BA in History and Archaeology", org: "Aristotle University of Thessaloniki (AUTH)",
+        "Bachelor's Degree in History and Archaeology", org: "Aristotle University of Thessaloniki (AUTH)",
         place: "Thessaloniki", dates: "2016",
       ),
       entry(
-        "Certificate of Professional Training in Special Education",
+        "Certificate in Special Education and Training (440 hours)",
         org: "University of the Aegean", dates: "2024",
       ),
       entry(
@@ -203,15 +193,15 @@
         place: "Thessaloniki", dates: "2011",
       ),
       entry(
-        "High School Diploma", org: "3rd General High School of Larissa",
+        "High School Diploma", org: "3rd Public High School of Larissa",
         place: "Larissa", dates: "2005",
       ),
     )
     #v(1pt)
     #text(size: 8pt, weight: "bold", fill: muted, tracking: 0.5pt)[#upper("Certificates & Seminars")]
     #v(4pt)
-    #item("Seminar in Special Education", dates: "2023 – 2024")
     #item("LRN Level 3 Certificate in ESOL International (CEF C2)", dates: "2024")
+    #item("Certificate of Completion in Green Skills Upskilling Program", dates: "2024")
     #item("ECDL — Computer Skills Certification", dates: "2017")
     #item("FCE of Michigan", dates: "2001")
 
